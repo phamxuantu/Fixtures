@@ -1,0 +1,305 @@
+body{
+    margin: 0;
+}
+
+div#sidebar {
+    float: left;
+    background: #222d32;
+    width: 15%;
+    height: 100%;
+    position: fixed;
+    overflow: auto;
+}
+
+div#content {
+    float: right;
+    width: 85%;
+    height: 100%;
+    display: table;
+    position: relative;
+}
+
+div#loader {
+    float: right;
+    width: 85%;
+    height: 100%;
+    display: table;
+}
+
+div#loaderBig {
+    float: right;
+    width: 85%;
+    height: 100%;
+    display: table;
+    position: relative;
+}
+
+div#notify {
+    float: right;
+    width: 85%;
+    height: 100%;
+    display: table;
+}
+
+li {
+    list-style-type: none;
+}
+
+.welcome{
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.imgHome{
+    float: right;
+}
+
+.score{
+    text-align: center;
+}
+
+th{
+    text-align: center;
+}
+
+.imgAway{
+    float: left;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th {
+    padding: 8px;
+}
+
+td{
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+
+th {
+    background-color: #6ab1e6;
+    color: white;
+}
+
+a {
+    text-decoration-line: unset;
+    color: blue;
+}
+
+img#imgLoader {
+    position: absolute;
+    margin: auto;
+    top: 90%;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+img#imgLoaderBig {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+p#txtNotify {
+    position: absolute;
+    text-align: center;
+    top: 93%;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+div.popup{
+    padding: 20px;
+    max-width: 350px;
+    width: 100% !important;
+    background-color: #F7F7F7;
+    margin: 0 auto;
+    border-radius: 2px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    text-align: center;
+}
+
+#popupAdd{
+    text-align: start;
+}
+
+div.popup h1{
+    text-align: center;
+}
+
+input[type=button] {
+    width: 100%;
+    display: block;
+    position: relative;
+    cursor: pointer;
+}
+
+.popup input[type=text], input[type=password]{
+    height: 44px;
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 10px;
+    -webkit-appearance: none;
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    border-top: 1px solid #c0c0c0;
+    /* border-radius: 2px; */
+    padding: 0 8px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.submit {
+    /* border: 1px solid #3079ed; */
+    border: 0px;
+    color: #fff;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+    background-color: #4d90fe;
+    padding: 17px 0px;
+    font-size: 14px;
+    /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
+}
+
+.league {
+    width: 100%;
+    height: 25px;
+    margin-bottom: 5px;
+}
+
+.name {
+    float: left;
+    width: 70%;
+}
+
+p {
+    margin: 0;
+}
+
+.function.name {
+    width: 29%;
+}
+
+.name {
+    float: left;
+    width: 70%;
+}
+
+.disable{
+    opacity: 0.4;
+    pointer-events: none;
+    margin-right: 10px;
+}
+
+a.add{
+    margin-right: 10px;
+}
+
+h2{
+    text-align: center;
+}
+
+.button-delete{
+    padding: 30px;
+    max-width: 350px;
+    margin: 0 auto;
+    text-align: center;
+    overflow: hidden;
+}
+
+.button-delete input[type=button] {
+    width: 47%;
+    display: block;
+    float: left;
+    margin-right: 3%;
+    position: relative;
+}
+
+#showError{
+    margin: 0;
+    color: red;
+}
+
+#pswd_info {
+    position: absolute;
+    bottom: 65px;
+    right: 55px;
+    width: 250px;
+    padding: 15px;
+    background: #fefefe;
+    font-size: .875em;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px #ccc;
+    border: 1px solid #ddd;
+}
+
+
+#pswd_info h4 {
+    margin:0 0 10px 0;
+    padding:0;
+    font-weight:normal;
+}
+
+#pswd_info::before {
+    content: "\25B2";
+    position:absolute;
+    top:-12px;
+    left:45%;
+    font-size:14px;
+    line-height:14px;
+    color:#ddd;
+    text-shadow:none;
+    display:block;
+}
+
+.invalid {
+    background:url(../images/invalid.png) no-repeat 0 50%;
+    padding-left:22px;
+    line-height:24px;
+    color:#ec3f41;
+}
+.valid {
+    background:url(../images/valid.png) no-repeat 0 50%;
+    padding-left:22px;
+    line-height:24px;
+    color:#3a7d34;
+}
+
+#pswd_info {
+    display:none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    float: right;
+}
+
+input[type="file"] {
+    height: 26px;
+    font-size: 16px;
+    width: 84%;
+    margin-bottom: 10px;
+    -webkit-appearance: none;
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    border-top: 1px solid #c0c0c0;
+    box-sizing: border-box;
+    display: none;
+}
