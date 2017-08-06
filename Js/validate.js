@@ -176,39 +176,7 @@ $('.submit[value="Add"]').click(function () {
                                         $('#phone').css('border-color', 'red');
                                         $('#background').show();
                                     }else {
-                                        $.ajax({
-                                            url : 'index.php?action=addUser',
-                                            type : 'post',
-                                            data: {name: $('#name').val(),
-                                                username: $('#username').val(),
-                                                password: $('#password').val(),
-                                                email: $('#email').val(),
-                                                phone: $('#phone').val(),
-                                                role: $('input[name="role"]:checked').val()
-                                            },
-                                            dataType : 'text',
-                                            success : function (result) {
-                                                var html = '';
-                                                if(result != 0){
-                                                    html += '<tr>';
-                                                    html += '<td>' + $('#name').val() + '</td>';
-                                                    html += '<td>' + $('#username').val() + '</td>';
-                                                    html += '<td>' + $('#email').val() + '</td>';
-                                                    html += '<td>' + $('#phone').val() + '</td>';
-                                                    html += '<td>' + $('input[name="role"]:checked').val() + '</td>';
-                                                    html += '<td>';
-                                                    html += '<a href="#" class="detailUser">Detail</a> |';
-                                                    html += '<a href="#" class="editUser" idUser="'+ result +'">Edit</a> |';
-                                                    html += '<a href="#" class="deleteUser" idUser="'+ result +'">Delete</a>';
-                                                    html += '</td>';
-                                                    html += '</tr>';
-                                                    $('#listUser').append(html);
-                                                    $('[value="Admin"]').prop('checked', false);
-                                                    $('[value="User"]').prop('checked', false);
-                                                    $('#popupAddUser').hide();
-                                                }
-                                            }
-                                        });
+                                        addUser();
                                     }
                                 }
                             }

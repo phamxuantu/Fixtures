@@ -1,4 +1,7 @@
 <div id="sidebar">
+    <div>
+        <h4 style="color: #b8c7ce;margin-left: 15px;">Hi, <?php echo $username ?> | <a style="color: red" href="?action=logout">Log out</a></h4>
+    </div>
     <ul class="sidebar-menu">
         <li>
             <a href="#">
@@ -11,10 +14,8 @@
                         <a href="#"><i class="fa fa-circle-o"></i> <?php echo $lg['name'] ?></a>
                         <ul class="sidebar-submenu">
                             <li idparent="<?php echo $lg['idL'] ?>" class="fixtures"><a href="#"><i class="fa fa-calendar"></i> Fixtures</a></li>
-                            <li><a href="#"><i class="fa fa-table"></i> Table</a></li>
-                            <li idparent="<?php echo $lg['idL'] ?>" class="team"><a href="#"><i
-                                            class="fa fa-laptop"></i>
-                                    Teams</a></li>
+                            <li idparent="<?php echo $lg['idL'] ?>" class="table"><a href="#"><i class="fa fa-table"></i> Table</a></li>
+                            <li idparent="<?php echo $lg['idL'] ?>" class="team"><a href="#"><i class="fa fa-laptop"></i> Teams</a></li>
                         </ul>
                     </li>
                 <?php }

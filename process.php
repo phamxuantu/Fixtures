@@ -8,7 +8,7 @@ class Run
         if (isset($_GET['action'])) {
             $fxController->$_GET['action']();
         } else {
-            $fxController->home();
+            $fxController->login();
         }
     }
 }

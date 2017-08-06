@@ -4,77 +4,60 @@
     <link rel="stylesheet" href="Styles/sidebar-menu.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+    <title>Fixtures</title>
 </header>
 <body style="position: relative">
 <?php require_once 'Templates/sidebar.php' ?>
 <div id="content">
-    <div class="welcome">
-        <h3>WELCOME TO SYSTEM</h3>
-    </div>
+    <?php if($news == ''){?>
+        <div class="welcome">
+            <h3>WELCOME TO SYSTEM</h3>
+        </div>
+    <?php }else{
+        echo '<h2>List News</h2>';
+        echo '<h4><a href="?action=formAddNews" id="addNews">Add news</a></h4>';
+        echo '<table id="listNews">';
+        echo '<tr>';
+        echo '<th style="text-align: start">Thumbnail</th>';
+        echo '<th style="text-align: start">Title</th>';
+        echo '<th style="text-align: start">Content</th>';
+        echo '<th style="text-align: start">Function</th>';
+        echo '</tr>';
+        foreach ($news as $n):
+            echo '<tr>';
+            $title = limit_text($n["title"], 10);
+            $content = limit_text(strip_tags($n["content"]), 15);
+            echo '<td style="text-align: start"><img src="'. $n['imgPost'] .'?'. uniqid() .'" width="30" height="30" onerror="errorImg(this)"/></td>';
+            echo '<td style="text-align: start">'. $title . '</td>';
+            echo '<td style="text-align: start">'. $content . '</td>';
+            echo '<td style="text-align: start">
+            <a href="#" class="detailNews" idNews="'. $n['id'] .'">Detail</a> |
+            <a href="?action=editNews&id='. $n['id'] .'" class="editNews" idNews="'. $n['id'] .'">Edit</a> |
+            <a href="#" class="deleteNews" idNews="'. $n['id'] .'">Delete</a>
+        </td>';
+            echo '</tr>';
+        endforeach;
+        echo '</table>';
+        echo '<div id="pagingNews">';
+        echo $page;
+        echo '</div>';
+    }?>
+    <?php
+    function limit_text($text, $limit) {
+        if (str_word_count($text, 0) > $limit) {
+            $words = str_word_count($text, 2);
+            $pos = array_keys($words);
+            $text = substr($text, 0, $pos[$limit]) . '...';
+        }
+        return $text;
+    }
+    ?>
 </div>
 <div id="loaderBig"  style="display: none">
     <img id="imgLoaderBig" src="images/loader.gif" width="10%"/>
 </div>
 <div id="popupAdd" class="popup"
      style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -200px; top: 50px;">
-    <h1>Select League</h1>
-    <form method="post">
-            <?php
-            $str = file_get_contents('http://api.football-data.org/v1/soccerseasons');
-            $json = json_decode($str, true);
-            for ($i = 0; $i < count($json); $i++) { ?>
-                <div class="league">
-                   <div class="name">
-                       <p><?php echo $json[$i]['caption'] ?></p>
-                   </div>
-                    <div class="function name">
-                        <a href="#" idl="<?php echo $json[$i]['id'] ?>" namel="<?php echo $json[$i]['caption'] ?>" class="<?php
-                        $check = false;
-                        foreach ($league as $lg):
-                            if(($json[$i]['id'] == $lg['idL']) && ($lg['public'] == 1)){
-                                $check = true;
-                                break;
-                            }
-                            else{
-                                $check = false;
-                            }
-                        endforeach;
-                        if($check){
-                            echo 'disable';
-                        }
-                        else{
-                            echo 'add';
-                        }
-                        ?>">Add</a>
-                        <a href="#" idl="<?php echo $json[$i]['id'] ?>" class="<?php
-                        $check = false;
-                        foreach ($league as $lg):
-                            if(($json[$i]['id'] == $lg['idL']) && ($lg['public'] == 1)){
-                                $check = true;
-                                break;
-                            }
-                            else{
-                                $check = false;
-                            }
-                        endforeach;
-                        if($check){
-                            echo 'delete';
-                        }
-                        else{
-                            echo 'disable';
-                        }
-                        ?>">Delete</a>
-                    </div>
-                </div>
-            <?php } ?>
-        <input class="submit" type="button" value="Done">
-    </form>
-    <div id="loader" style="display: none">
-        <img id="imgLoader" src="images/loader.gif" width="8%"/>
-    </div>
-    <div id="notify" style="display: none">
-        <p id="txtNotify"></p>
-    </div>
 </div>
 <div id="popupAddUser" class="popup"
      style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -200px; top: 10px;">
@@ -93,12 +76,6 @@
         <p class="showError" style="display: none; color: red"></p>
         <input type="text" id="phone" placeholder="Phone(*)">
         <p class="showError" style="display: none; color: red"></p>
-        <div id="role">
-            <input type="radio" name="role" id="role-admin" value="Admin">
-            <label for="role-admin">Admin</label>
-            <input type="radio" name="role" id="role-user" value="User">
-            <label for="role-user">User</label>
-        </div>
         <input type="button" class="submit" value="Add">
     </form>
     <div id="pswd_info">
@@ -117,6 +94,10 @@
     <h1>Detail User</h1><br>
     <table id="detailUser">
         <tr>
+            <td>Avatar: </td>
+            <td></td>
+        </tr>
+        <tr>
             <td>Full name: </td>
             <td></td>
         </tr>
@@ -134,6 +115,10 @@
         </tr>
         <tr>
             <td>Role: </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Status: </td>
             <td></td>
         </tr>
     </table>
@@ -143,18 +128,34 @@
 <div id="popupEdit" class="popup"
      style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -200px; top: 50px;">
     <h1>Edit User</h1>
-    <form method="post">
-        <input type="text" id="idE" placeholder="id" hidden>
-        <input type="text" id="nameE" placeholder="Full name">
-        <input type="text" id="emailE" placeholder="Email">
-        <input type="text" id="phoneE" placeholder="Phone">
+    <form method="post" id="theForm" enctype="multipart/form-data">
+        <input type="text" id="idE" name="idE" placeholder="id" hidden>
+        <label style="float: left;" for="nameE">Full name</label>
+        <input type="text" id="nameE" name="nameE" placeholder="Full name">
+        <label style="float: left;" for="emailE">Email</label>
+        <input type="text" id="emailE" name="emailE" placeholder="Email">
+        <label style="float: left;" for="phoneE">Phone Number</label>
+        <input type="text" id="phoneE" name="phoneE" placeholder="Phone">
+        <input type="submit" id="changePass" class="submit" value="Change password">
         <div id="role">
             <input type="radio" name="roleE" id="role-admin" value="Admin">
             <label for="role-admin">Admin</label>
             <input type="radio" name="roleE" id="role-user" value="User">
             <label for="role-user">User</label>
         </div>
-        <input type="button" class="submit" value="Done Edit">
+        <div id="checkBlock">
+            <label for="block">Block</label>
+            <input type="checkbox" name="block" id="block">
+        </div>
+        <div style="width: 100%; display: inline-block">
+            <p style="float: left">Choose avatar:</p>
+            <label for="avatar" class="custom-file-upload">
+                <img id="output" width="50px" height="50px"/>
+            </label>
+            <input type="file" id="avatar" name="avatar" accept="image/jpeg,image/png"
+                   onchange="loadFile(event)"/>
+        </div>
+        <input type="submit" class="submit" value="Done Edit">
     </form>
 </div>
 
@@ -163,6 +164,10 @@
     <h1>Delete User</h1>
     <table id="deleteUser">
         <input type="text" id="idD" hidden>
+        <tr>
+            <td>Avatar: </td>
+            <td></td>
+        </tr>
         <tr>
             <td>Full name: </td>
             <td></td>
@@ -183,11 +188,30 @@
             <td>Role: </td>
             <td></td>
         </tr>
+        <tr>
+            <td>Status: </td>
+            <td></td>
+        </tr>
     </table>
     <div class="button-delete">
         <form>
             <input type="button" name="confirm" class="submit" value="Yes">
             <input type="button" name="confirm" class="submit" value="No">
+        </form>
+    </div>
+    </form>
+</div>
+
+<div id="popupDeleteNews" class="popup"
+     style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -200px; top: 70px;">
+    <h1>Delete News</h1>
+    <input type="text" id="idN" hidden>
+    <h2>Do you want to delete this news?</h2>
+    <h4 id="titleNews"></h4>
+    <div class="button-delete-news">
+        <form>
+            <input type="button" name="confirm-news" class="submit" value="Yes">
+            <input type="button" name="confirm-news" class="submit" value="No">
         </form>
     </div>
     </form>

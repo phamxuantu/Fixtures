@@ -1,6 +1,10 @@
 <?php
     class FixturesView{
-        public function home($league){
+        public function login(){
+            require_once ('Templates/login.php');
+        }
+
+        public function home($league, $news, $page){
             require_once ('Templates/home.php');
         }
 
@@ -8,11 +12,15 @@
             require_once ('Templates/listTeams.php');
         }
 
-        public function showFixtures($fixtures, $teams){
+        public function showFixtures($fixtures, $teams, $mathchDay, $numberOfMatchdays, $id){
             require_once ('Templates/listFixtures.php');
         }
 
-        public function sidebar($league){
+        public function showTable($table){
+            require_once ('Templates/dataTable.php');
+        }
+
+        public function sidebar($league, $username){
             require_once ('Templates/sidebar.php');
         }
 
@@ -24,7 +32,7 @@
             require_once ('Templates/updateSidebar.php');
         }
 
-        public function showUsers($users){
+        public function showUsers($users, $page, $username){
             require_once ('Templates/listUsers.php');
         }
 
@@ -32,8 +40,24 @@
             require_once ('Templates/idUser.php');
         }
 
-        public function showNews($news){
+        public function showNews($news, $page){
             require_once ('Templates/listNews.php');
+        }
+
+        public function showFormAddNews(){
+            require_once ('Templates/formAddNews.php');
+        }
+
+        public function detailNews($news){
+            require_once ('Templates/detailNews.php');
+        }
+
+        public function showFormEditNews($news){
+            require_once ('Templates/formEditNews.php');
+        }
+
+        public function showLeague($result, $league){
+            require_once ('Templates/listLeague.php');
         }
     }
 ?>
